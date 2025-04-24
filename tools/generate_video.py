@@ -3,6 +3,8 @@ import os
 import numpy as np
 import json
 from tqdm import trange
+import argparse
+import sys
 
 
 def create_video(images_folder, output_video, fps, font_scale, text_color, text_position):
@@ -31,11 +33,27 @@ def create_video(images_folder, output_video, fps, font_scale, text_color, text_
         video.write(img)
     video.release()
 
-images_folder = ''
-output_video = ''
-fps = 15
-font_scale = 1
-text_color = (255, 255, 255)
-text_position = (50, 50)
 
-create_video(images_folder, output_video, fps, font_scale, text_color, text_position)
+if __name__ == "__main__":
+    # Parse arguments
+    # -f img_folder
+    # -o output_video path
+    # -fps fps
+    parser = argparse.ArgumentParser(description='Create a video from images with metadata overlay.')
+    parser.add_argument('-f', '--folder', type=str, required=True, help='Path to the folder containing images and metadata.')
+    parser.add_argument('-o', '--output', type=str, required=True, help='Path to the output video file.')
+    parser.add_argument('-fps', '--fps', type=int, default=15, help='Frames per second for the output video.')
+
+    if len(sys.argv) == 1:
+        parser.print_help(sys.stderr)
+        sys.exit(1)
+    
+    args = parser.parse_args()
+    images_folder = args.folder
+    output_video = args.output
+    fps = args.fps
+    font_scale = 1
+    text_color = (255, 255, 255)
+    text_position = (50, 50)
+
+    create_video(images_folder, output_video, fps, font_scale, text_color, text_position)

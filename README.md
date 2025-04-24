@@ -107,7 +107,7 @@ Use the command line: *huggingface-cli download --repo-type dataset --resume-dow
     ```
   - Visualization - make a video for debugging with canbus info printed on the sequential images.
     ```bash
-        python tools/generate_video.py -f your_rgb_folder/
+        python tools/generate_video.py -f your_rgb_folder/ -o xxxx.mp4
     ```
   - Metric: **Make sure there are exactly 220 routes in your json. Failed/Crashed status is also acceptable. Otherwise, the metric is inaccurate.**
     ```bash
